@@ -1,52 +1,34 @@
-# Node.js Getting started
-在 LeanCloud 云引擎上使用 Express 的 Node.js 实例项目。
+# 假期API
 
-## 一键部署
-[![Deploy to LeanEngine](http://ac-32vx10b9.clouddn.com/109bd02ee9f5875a.png)](https://leancloud.cn/1.1/engine/deploy-button)
+准备一系列关于节假日的接口，方便自动化的工作。
 
-## 本地运行
+## 一个计算某一天是否工作的接口
 
-首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
+`GET /work`
 
-```
-$ git clone https://github.com/leancloud/node-js-getting-started.git
-$ cd node-js-getting-started
-```
+### 请求参数
 
-安装依赖：
+`date=2018-1-1`
 
-```
-npm install
-```
+例如： `/work?date=2018-1-2`
 
-登录并关联应用：
+### 返回值
 
-```
-lean login
-lean switch
+#### 成功的情况
+
+```js
+{
+  code: 200,
+  data: 'Y', // Y : 当天工作，N ：当天不工作
+  message: '请求成功'
+}
 ```
 
-启动项目：
+#### 失败的情况
 
+```js
+{
+  code: 500,
+  message: '服务器出错'
+}
 ```
-lean up
-```
-
-之后你就可以在 [localhost:3000](http://localhost:3000) 访问到你的应用了。
-
-## 部署到 LeanEngine
-
-部署到预备环境（若无预备环境则直接部署到生产环境）：
-```
-lean deploy
-```
-
-## 相关文档
-
-* [云函数开发指南](https://leancloud.cn/docs/leanengine_cloudfunction_guide-node.html)
-* [网站托管开发指南](https://leancloud.cn/docs/leanengine_webhosting_guide-node.html)
-* [JavaScript 开发指南](https://leancloud.cn/docs/leanstorage_guide-js.html)
-* [JavaScript SDK API](https://leancloud.github.io/javascript-sdk/docs/)
-* [Node.js SDK API](https://github.com/leancloud/leanengine-node-sdk/blob/master/API.md)
-* [命令行工具使用指南](https://leancloud.cn/docs/leanengine_cli.html)
-* [云引擎常见问题和解答](https://leancloud.cn/docs/leanengine_faq.html)
