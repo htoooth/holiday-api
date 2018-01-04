@@ -3,13 +3,6 @@ const phantom = require('phantom')
 
 const END_POINT = 'http://www.baidu.com/s'
 
-class Holiday {
-  constructor() {
-    this.work = '',
-    this.tip = '';
-  }
-}
-
 function sleep(s) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -27,11 +20,9 @@ async function getHtml(url) {
   return content
 }
 
-async function query(date) {
-  const [year, month, day] = date.split('-');
+async function query(year, month, day) {
   const newDate = `${year}年${month}月${day}日`;
   const url = `${END_POINT}?wd=${encodeURIComponent(newDate)}`;
-  console.log(url);
 
   const html = await getHtml(url);
   const $ = cheerio.load(html);
@@ -57,7 +48,9 @@ async function query(date) {
 
   return {
     error: null,
-    result: shouldWork ? 'Y':'N'
+    result: {
+      shoudWork: shouldWork ? 'Y':'N'
+    }
   }
 }
 
