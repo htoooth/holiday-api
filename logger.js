@@ -3,12 +3,10 @@ const log4js = require('log4js');
 // config
 log4js.configure({
   appenders: {
-    console: { type: 'console' },
-    file: { type: 'file', filename: 'logs/log4jsconnect.log' }
+    console: { type: 'console' }
   },
   categories: {
-    default: { appenders: ['console'], level: 'debug' },
-    log4jslog: { appenders: ['file'], level: 'debug' }
+    default: { appenders: ['console'], level: 'debug' }
   }
 });
 
