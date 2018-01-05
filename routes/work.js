@@ -7,17 +7,17 @@ const _ = require('lodash');
 var holiday = require('./holiday-service');
 
 router.get('/', function(req, res, next) {
-  const date = req.body.date || moment().format('YYYY-MM-DD');
+  const date = req.query.date || moment().format('YYYY-MM-DD');
   const [year, month, day] = date.split('-');
 
-  if (!_.isNumber(year) || !_.isNumber(month) || !_.isNumber(day)) {
+  if (!_.isNumber(+year) || !_.isNumber(+month) || !_.isNumber(+day)) {
     return res.json({
       code: 401,
       message: '参数错误'
     })
   }
 
-  holiday.query(+year, +month, +day).then(({error, result}) => {
+  holiday.query(date).then(({error, result}) => {
     if (error) {
       return res.json({
         code: 500,

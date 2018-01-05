@@ -1,5 +1,6 @@
 const cheerio = require('cheerio')
 const phantom = require('phantom')
+const _ = require('lodash')
 
 const END_POINT = 'http://www.baidu.com/s'
 
@@ -20,7 +21,8 @@ async function getHtml(url) {
   return content
 }
 
-async function query(year, month, day) {
+async function query(date) {
+  const [year, month, day] = date.split('-');
   const newDate = `${year}年${month}月${day}日`;
   const url = `${END_POINT}?wd=${encodeURIComponent(newDate)}`;
 
@@ -29,7 +31,6 @@ async function query(year, month, day) {
   const today = $('.op-calendar-new').find('.op-calendar-new-table-selected');
 
   let shouldWork = true;
-
   const shouldRest = today.hasClass('op-calendar-new-table-weekend');
   const mustWork = today.hasClass('op-calendar-new-table-work');
   const mustRest = today.hasClass('op-calendar-new-table-rest');
@@ -55,5 +56,5 @@ async function query(year, month, day) {
 }
 
 module.exports = {
-  query
+  query: _.memoize(query)
 }
