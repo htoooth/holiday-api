@@ -50,7 +50,7 @@ async function query(date) {
   return {
     error: null,
     result: {
-      shoudWork: shouldWork ? 'Y':'N'
+      shouldWork: shouldWork ? 'Y':'N'
     }
   }
 }
